@@ -2,5 +2,13 @@
 - name: Update all packages
   hosts: localhost
   tasks:
-    - command: yum update -y
+    - name: Updating packages
+      yum: 
+        name: '*'
+        state: latest
+         
+   
+   
+   
+  #  - command: yum update -y
         
