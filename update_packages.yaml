@@ -1,0 +1,6 @@
+---
+- name: Update all packages
+  hosts: localhost
+  tasks:
+    - command: yum update -y
+        
