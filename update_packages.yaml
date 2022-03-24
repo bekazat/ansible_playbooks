@@ -6,8 +6,24 @@
       yum: 
         name: '*'
         state: latest
-        exclude: kernel*,foo*         
-   
+        exclude: kernel*,foo*     
+
+    - name: Install packages
+      yum:
+        name: ["vim","tree","wget","curl"]
+        state: latest
+
+    - name: Create a empty file
+      file: 
+        path: /tmp/ansible_file
+        state: touch 
+
+    - name: Write into file
+      blockinfile:
+        path: /tmp/ansible_file
+        block: | 
+          This is line one
+          This is line two
    
    
   #  - command: yum update -y
