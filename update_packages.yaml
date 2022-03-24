@@ -1,14 +1,14 @@
 ---
-- name: Update all packages
+- name: Update all packages, Install packages, Create and insert lines to a file
   hosts: multi
   tasks:
-    - name: Updating packages
+    - name: Updating all packages
       yum: 
         name: '*'
         state: latest
         exclude: kernel*,foo*     
 
-    - name: Install packages
+    - name: Installing packages
       yum:
         name: ["vim","tree","wget","curl"]
         state: latest
