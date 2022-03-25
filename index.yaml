@@ -1,0 +1,31 @@
+---
+- name: Creating Index file
+  hosts: localhost
+  tasks:
+    - name: Creating file
+      file: 
+        path: /root/gitrepos/ansible_playbooks/index.html
+        state: touch
+    
+    - name: Writing into file
+      blockinfile:
+         path: /root/gitrepos/ansible_playbooks/index.html
+         block:  |
+           <!DOCTYPE html>
+           <html>
+           <head>
+           <title>My Website</title>
+           </head>
+           <body>
+
+           <h1>Welcome to my page!</h1>
+           <p>This my awesome website.</p>
+           <img src="https://www.pexels.com/photo/3183197/download/?search_query=technology&tracking_id=27mp317lftr" alt="Italian Trulli">
+
+           </body>
+           </html>
+
+   - name: Copy file   
+     copy:
+       src: /root/gitrepos/ansible_playbooks/index.html
+       dest: /usr/share/nginx/html/index.html
