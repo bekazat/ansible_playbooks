@@ -1,0 +1,85 @@
+---
+- name: Update all packages, Install packages, Create and insert lines to a file
+  hosts: managed
+  tasks:
+    - name: Updating packages on CentOS
+      yum: 
+        name: '*'
+        state: latest
+        exclude: kernel*,foo*
+      when: ansible_pkg_mgr == "yum"
+
+    - name: Updating Ubuntu packages
+      apt:
+        name: "*"
+        state: latest
+      when: ansible_pkg_mgr == "apt"
+
+    - name: Adding Epel repo
+      yum_repository:
+        name: epel
+        description: EPEL YUM repo
+        baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+        gpgcheck: no
+        state: present 
+      when: ansible_distribution == "CentOS"
+
+    - name: Installing Nginx on CentOS
+      yum:
+        name: nginx
+        state: latest
+      when: ansible_pkg_mgr == "yum"
+
+    - name: Install Nginx on Ubuntu
+      apt:
+        name: nginx
+        state: latest
+      when: ansible_pkg_mgr == "apt"  
+
+    - name: Starting Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes    
+          
+      
+    - name: Copy index to CentOS server
+      copy:
+        src: /root/gitrepos/ansible_playbooks/index.html
+        dest: /usr/share/nginx/html/index.html
+      when: ansible_distribution == "CentOS"
+
+    - name: Copy index file to Ubuntu server
+      copy:
+        src: /root/gitrepos/ansible_playbooks/index.html
+        dest: /var/www/html/index.html
+      when: ansible_distribution == "Ubuntu"
+      
+
+
+
+
+
+
+
+
+#    - name: Installing packages
+#      yum:
+#        name: httpd
+#        state: latest
+
+#    - name: Create a empty file
+#      file: 
+#        path: /tmp/ansible_file
+#        state: touch 
+#
+#    - name: Write into file
+#      blockinfile:
+#        path: /tmp/ansible_file
+#        block: | 
+#          This is line one
+#          This is line two
+   
+   
+#  - command: yum update -y
+        

@@ -1,8 +1,15 @@
 ---
 - name: Package Installation
-  hosts: all
+  hosts: managed
+  gather_facts: yes
   tasks:
     - name: Packages being installed
       yum: 
         name: vim, tree, wget, curl
-        state: present
+        state: latest
+#      when: ansible_pkg_mgr == "yum"  
+#    - name: Packages being installed
+#      apt: 
+#        name: vim, tree, wget, curl
+#        state: latest
+#      when: ansible_pkg_mgr == "apt"     
