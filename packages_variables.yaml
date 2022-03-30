@@ -1,0 +1,21 @@
+---
+- name: This playbook installs packages with packages variable
+  hosts: managed
+  vars: 
+    packages: 
+      - vim
+      - wget
+      - tree
+      - curl
+  tasks:
+    - name: Installing packages On CentOS
+      yum:
+        name: "{{packages}}"
+        state: present
+      when: ansible_pkg_mgr == "yum"
+    - name: Installing packages on Ubuntu
+      apt:
+        name: "{{packages}}"
+        state: present
+      when: ansible_pkg_mgr == "apt"
+
