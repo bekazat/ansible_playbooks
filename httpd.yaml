@@ -1,0 +1,14 @@
+---
+- name: Stop and uninstall HTTPD
+  hosts: localhost
+  tasks:
+    - name: Stop http
+      service: 
+        name: httpd
+        state: stopped
+    - name: Uninstall httpd
+      yum:
+        name: httpd
+        state: absent
+
+   

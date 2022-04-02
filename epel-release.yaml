@@ -6,3 +6,14 @@
       yum:
         name: epel-release
         state: latest
+
+    - name: Install Nginx
+      yum: 
+        name: nginx
+        state: latest
+      
+    - name: Start and Enable Nginx
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
